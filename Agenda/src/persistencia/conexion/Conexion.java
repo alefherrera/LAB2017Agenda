@@ -6,18 +6,21 @@ import java.sql.DriverManager;
 public class Conexion 
 {
 	public static Conexion instancia;
+	private final static String driver = "com.mysql.jdbc.Driver";
 	private Connection conexion;
 	
 	public Conexion()
 	{
 		try
 		{
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","root");
+			Class.forName(driver).newInstance();
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","agenda","agenda");
 			System.out.println("Conexion exitosa");
 		}
 		catch(Exception e)
 		{
 			System.out.println("Conexion fallida");
+			e.printStackTrace();
 		}
 	}
 	
