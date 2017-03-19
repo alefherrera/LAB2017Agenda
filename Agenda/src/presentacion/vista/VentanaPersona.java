@@ -34,7 +34,6 @@ public class VentanaPersona extends JFrame {
 	private JLabel lblEmail;
 	private JLabel lblFechaNac;
 	private JLabel lblTipoDeContacto;
-	private JTextField txtFechaNac;
 	private JComboBox<LocalidadDTO> cmbLocalidad;
 	private JComboBox<TipoContactoDTO> cmbTipoContacto;
 	private JDateChooser dateChooser;
@@ -141,13 +140,8 @@ public class VentanaPersona extends JFrame {
 		cmbTipoContacto.setBounds(434, 138, 162, 22);
 		panel.add(cmbTipoContacto);
 
-		txtFechaNac = new JTextField();
-		txtFechaNac.setColumns(10);
-		txtFechaNac.setBounds(432, 108, 164, 20);
-		panel.add(txtFechaNac);
-
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(312, 208, 171, 39);
+		dateChooser.setBounds(432, 109, 162, 20);
 		panel.add(dateChooser);
 
 		this.setVisible(true);
@@ -161,8 +155,6 @@ public class VentanaPersona extends JFrame {
 		txtTelefono.setText(persona.getTelefono());
 		txtEmail.setText(persona.getEmail());
 
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		txtFechaNac.setText(format.format(persona.getFechaNac()));
 		dateChooser.setDate(persona.getFechaNac());
 
 		txtCalle.setText(persona.getCalle());
@@ -205,10 +197,6 @@ public class VentanaPersona extends JFrame {
 
 	public JTextField getTxtEmail() {
 		return txtEmail;
-	}
-
-	public JTextField getTxtFechaNac() {
-		return txtFechaNac;
 	}
 
 	public JComboBox<LocalidadDTO> getCmbLocalidad() {
