@@ -16,7 +16,7 @@ public class Vista {
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private String[] nombreColumnas = { "Nombre y apellido", "Teléfono" };
+	private String[] nombreColumnas = { "Nombre y apellido", "Teléfono", "Localidad", "Tipo de Contacto" };
 	private JButton btnEditar;
 	private JButton btnLocalidades;
 	private JButton btnTiposContacto;
@@ -31,7 +31,8 @@ public class Vista {
 		frame.setBounds(100, 100, 627, 369);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		frame.setResizable(false);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 610, 322);
 		frame.getContentPane().add(panel);
@@ -48,6 +49,10 @@ public class Vista {
 		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
 		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
 		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(2).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(3).setResizable(false);
 
 		spPersonas.setViewportView(tablaPersonas);
 

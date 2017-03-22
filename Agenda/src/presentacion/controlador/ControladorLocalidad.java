@@ -22,8 +22,11 @@ public class ControladorLocalidad implements ActionListener {
 		this.agenda = agenda;
 		this.controladorListado = controladorListado;
 		this.currentLocalidad = currentLocalidad;
-		if (currentLocalidad != null)
+		if (currentLocalidad != null){
 			this.vista.getTxtNombre().setText(currentLocalidad.getDescripcion());
+			this.vista.getBtnAgregar().setText("Editar");
+		}
+			
 		vista.getBtnAgregar().addActionListener(this);
 		vista.show();
 	}
@@ -37,7 +40,7 @@ public class ControladorLocalidad implements ActionListener {
 				agenda.agregarLocalidad(new LocalidadDTO(0, vista.getTxtNombre().getText()));
 			} else {
 				currentLocalidad.setDescripcion(vista.getTxtNombre().getText());
-				agenda.actualizarLocalidad(new LocalidadDTO(0, vista.getTxtNombre().getText()));
+				agenda.actualizarLocalidad(currentLocalidad);
 			}
 
 			controladorListado.llenarTabla();

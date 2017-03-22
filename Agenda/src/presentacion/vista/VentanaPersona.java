@@ -1,22 +1,19 @@
 package presentacion.vista;
 
-import java.text.SimpleDateFormat;
-
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import dto.TipoContactoDTO;
-import presentacion.controlador.Controlador;
-import presentacion.controlador.ControladorPersona;
-
-import javax.swing.JComboBox;
-import com.toedter.calendar.JDateChooser;
 
 public class VentanaPersona extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -142,6 +139,9 @@ public class VentanaPersona extends JFrame {
 
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(432, 109, 162, 20);
+		JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
+		editor.setEditable(false);
+		
 		panel.add(dateChooser);
 
 		this.setVisible(true);
