@@ -14,7 +14,7 @@ import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 
 public class VentanaListado {
-	private JDialog frame;
+	public JDialog frame;
 	private JTable tablaEntidad;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
@@ -29,7 +29,8 @@ public class VentanaListado {
 
 	private void initialize() {
 		frame = new JDialog();
-		frame.setBounds(100, 100, 452, 293);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 446, 305);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		JPanel panel = new JPanel();

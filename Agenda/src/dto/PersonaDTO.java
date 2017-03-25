@@ -32,6 +32,28 @@ public class PersonaDTO
 		this.tipoContacto = tipoContacto;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idPersona;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PersonaDTO other = (PersonaDTO) obj;
+		if (idPersona != other.idPersona)
+			return false;
+		return true;
+	}
+
 	public int getIdPersona() {
 		return idPersona;
 	}
@@ -118,6 +140,17 @@ public class PersonaDTO
 
 	public void setTipoContacto(TipoContactoDTO tipoContacto) {
 		this.tipoContacto = tipoContacto;
+	}
+	
+	public String getLocalidadDescripcion(){
+		return this.localidad.getDescripcion();
+	}
+	
+	
+	public enum AtributoPersona
+	{
+		LOCALIDAD,
+		TIPOCONTACTO
 	}
 	
 	

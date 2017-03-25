@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
@@ -27,10 +28,9 @@ public class ControladorPersona implements ActionListener {
 		this.currentPerson = currentPerson;
 		this.controlador = controlador;
 		this.agenda = agenda;
-		this.ventanaPersona.cargarFormulario(currentPerson);
-
+		
 		cargarCombos();
-
+		this.ventanaPersona.cargarFormulario(currentPerson);
 	}
 
 	private void cargarCombos() {
@@ -49,14 +49,28 @@ public class ControladorPersona implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
-			// es una persona nueva
-
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			
+			if (ventanaPersona.getTxtNombre().getText().isEmpty()) {
+				JOptionPane.showMessageDialog(ventanaPersona, 
+						"Por favor, ingrese un nombre al contacto nuevo.", 
+						"Error en un campo", 1);
+				return;
+			}
+			
+			if (!isNumeric(ventanaPersona.getTxtAltura().getText())
+				|| !isNumeric(ventanaPersona.getTxtDepto().getText())
+				|| !isNumeric(ventanaPersona.getTxtPiso().getText())) {
+				JOptionPane.showMessageDialog(ventanaPersona, 
+						"Por favor, ingrese valores numericos en los campos Altura, Piso, Depto.", 
+						"Error en un campo", 1);
+				return;
+			}
+			
 			Date parsed;
 			java.sql.Date birthdayDate = null;
 			parsed = ventanaPersona.getDateChooser().getDate();
 			birthdayDate = new java.sql.Date(parsed.getTime());
-
+			
 			if (getCurrentPerson() == null) {
 				PersonaDTO nuevaPersona = new PersonaDTO(0, ventanaPersona.getTxtNombre().getText(),
 						ventanaPersona.getTxtTelefono().getText(), ventanaPersona.getTxtEmail().getText(), birthdayDate,
@@ -83,7 +97,7 @@ public class ControladorPersona implements ActionListener {
 
 				this.agenda.actualizarPersona(personaEditar);
 			}
-
+			
 			controlador.llenarTabla();
 			this.ventanaPersona.dispose();
 		}
@@ -96,5 +110,16 @@ public class ControladorPersona implements ActionListener {
 	public void setCurrentPerson(PersonaDTO currentPerson) {
 		this.currentPerson = currentPerson;
 	}
-
+	
+	private boolean isNumeric(String value)
+	{
+		try {
+			Integer.parseInt(value);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+	
 }

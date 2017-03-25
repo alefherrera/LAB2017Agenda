@@ -2,7 +2,10 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import dto.LocalidadDTO;
 import dto.TipoContactoDTO;
@@ -51,7 +54,14 @@ public class ControladorListadoTipoContacto implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnBorrar()) {
 			int[] filas_seleccionadas = this.vista.getTablaEntidad().getSelectedRows();
 			for (int fila : filas_seleccionadas) {
-				this.agenda.eliminarTipoContacto(this.tiposContacto.get(fila));
+				
+				try {
+					this.agenda.eliminarTipoContacto(this.tiposContacto.get(fila));
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(vista.frame,
+							"No se puede borrar este tipo de contacto. Alguna persona pertenece a este tipo.",
+							"Error borrando.", 1);
+				}
 			}
 
 			this.llenarTabla();

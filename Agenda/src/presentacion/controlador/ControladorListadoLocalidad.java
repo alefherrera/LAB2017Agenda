@@ -1,16 +1,19 @@
 package presentacion.controlador;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
+import dto.LocalidadDTO;
 import modelo.Agenda;
-import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaABM;
 import presentacion.vista.VentanaListado;
-import presentacion.vista.VentanaPersona;
-import presentacion.vista.Vista;
-import dto.LocalidadDTO;
-import dto.PersonaDTO;
 
 public class ControladorListadoLocalidad implements ActionListener {
 	private VentanaListado vista;
@@ -46,22 +49,29 @@ public class ControladorListadoLocalidad implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.vista.getBtnAgregar()) {
-			
+
 			VentanaABM ventanaPer = new VentanaABM();
 			new ControladorLocalidad(ventanaPer, this, agenda, null);
-			
+
 		} else if (e.getSource() == this.vista.getBtnBorrar()) {
 			int[] filas_seleccionadas = this.vista.getTablaEntidad().getSelectedRows();
 			for (int fila : filas_seleccionadas) {
-				this.agenda.eliminarLocalidad(this.localidades.get(fila));
+				try {
+					this.agenda.eliminarLocalidad(this.localidades.get(fila));
+				} catch (SQLException e2) {
+					JOptionPane.showMessageDialog(vista.frame,
+							"No se puede borrar esta localidad. Alguna persona vive en esta localidad.",
+							"Error borrando.", 1);
+				}
+
 			}
 
 			this.llenarTabla();
-			
+
 		} else if (e.getSource() == this.vista.getBtnEditar()) {
 			int position = this.vista.getTablaEntidad().getSelectedRows()[0];
 			LocalidadDTO selectedLoc = this.localidades.get(position);
-			
+
 			VentanaABM ventanaPer = new VentanaABM();
 			new ControladorLocalidad(ventanaPer, this, agenda, selectedLoc);
 		}

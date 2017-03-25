@@ -5,10 +5,14 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
+import presentacion.vista.VentanaConfiguracion;
 import presentacion.vista.VentanaListado;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import util.ConfigService;
+import util.DatabaseUtil;
 import dto.PersonaDTO;
+import dto.PersonaDTO.AtributoPersona;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
@@ -28,7 +32,14 @@ public class Controlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.llenarTabla();
+		
+		if (DatabaseUtil.testConnection(ConfigService.GetConfiguration())) {
+			this.llenarTabla();
+		}else
+		{
+			VentanaConfiguracion configWindow = new VentanaConfiguracion();
+			ControladorConfiguracion configController = new ControladorConfiguracion(configWindow, this);
+		}
 	}
 
 	public void llenarTabla() {
@@ -37,12 +48,22 @@ public class Controlador implements ActionListener {
 		this.vista.getModelPersonas().setColumnIdentifiers(this.vista.getNombreColumnas());
 
 		this.personas_en_tabla = agenda.obtenerPersonas();
-		for (int i = 0; i < this.personas_en_tabla.size(); i++) {
-			Object[] fila = { this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono(),
-					this.personas_en_tabla.get(i).getLocalidad().getDescripcion(),this.personas_en_tabla.get(i).getTipoContacto().getDescripcion()};
+		for (PersonaDTO personaDTO : personas_en_tabla) {
+			Object[] fila = { 
+					personaDTO.getNombre(), 
+					personaDTO.getTelefono(),
+					personaDTO.getTipoContacto().getDescripcion(),
+					personaDTO.getLocalidad().getDescripcion()
+			};
 			this.vista.getModelPersonas().addRow(fila);
 		}
 		this.vista.show();
+	}
+	
+	public void finishApplication()
+	{
+		this.vista.close();
+		System.exit(0);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -64,7 +85,7 @@ public class Controlador implements ActionListener {
 			VentanaPersona ventanaPer = new VentanaPersona();
 			ControladorPersona ctrlPersona = new ControladorPersona(ventanaPer, agenda, selectedPerson, this);
 		} else if (e.getSource() == this.vista.getBtnReporte()) {
-			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
+			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonasPorOrden(AtributoPersona.LOCALIDAD), agenda.reporte_PersonasXLocalidad());
 			reporte.mostrar();
 		} else if (e.getSource() == this.vista.getBtnLocalidades()) {
 			VentanaListado ventanaListado = new VentanaListado();

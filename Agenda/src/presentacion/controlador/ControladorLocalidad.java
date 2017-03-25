@@ -26,7 +26,6 @@ public class ControladorLocalidad implements ActionListener {
 			this.vista.getTxtNombre().setText(currentLocalidad.getDescripcion());
 			this.vista.getBtnAgregar().setText("Editar");
 		}
-			
 		vista.getBtnAgregar().addActionListener(this);
 		vista.show();
 	}

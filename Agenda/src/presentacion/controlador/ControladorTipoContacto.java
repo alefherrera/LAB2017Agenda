@@ -25,7 +25,6 @@ public class ControladorTipoContacto implements ActionListener {
 			this.vista.getTxtNombre().setText(currentTipoContacto.getDescripcion());
 			this.vista.getBtnAgregar().setText("Editar");
 		}
-			
 		vista.show();
 	}
 
