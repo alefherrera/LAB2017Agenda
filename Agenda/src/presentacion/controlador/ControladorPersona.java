@@ -14,6 +14,7 @@ import dto.PersonaDTO;
 import dto.TipoContactoDTO;
 import modelo.Agenda;
 import presentacion.vista.VentanaPersona;
+import util.EmailValidator;
 
 public class ControladorPersona implements ActionListener {
 
@@ -53,6 +54,13 @@ public class ControladorPersona implements ActionListener {
 			if (ventanaPersona.getTxtNombre().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(ventanaPersona, 
 						"Por favor, ingrese un nombre al contacto nuevo.", 
+						"Error en un campo", 1);
+				return;
+			}
+			
+			if (!new EmailValidator().validate(ventanaPersona.getTxtEmail().getText())) {
+				JOptionPane.showMessageDialog(ventanaPersona, 
+						"Por favor, ingrese una direccion de Email valida.", 
 						"Error en un campo", 1);
 				return;
 			}
