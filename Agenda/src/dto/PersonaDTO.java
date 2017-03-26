@@ -146,6 +146,10 @@ public class PersonaDTO
 		return this.localidad.getDescripcion();
 	}
 	
+	public String getServidorMail() {
+		return "gmail";
+	}
+	
 	
 	public enum AtributoPersona
 	{
