@@ -30,6 +30,10 @@ public class ControladorPersona implements ActionListener {
 		this.controlador = controlador;
 		this.agenda = agenda;
 		
+		if (this.currentPerson != null) {
+			this.ventanaPersona.getBtnAgregarPersona().setText("Editar");
+		}
+		
 		cargarCombos();
 		this.ventanaPersona.cargarFormulario(currentPerson);
 	}
