@@ -147,7 +147,16 @@ public class PersonaDTO
 	}
 	
 	public String getServidorMail() {
-		return "gmail";
+		return getServer(this.email);
+		// return "gmail";
+	}
+	
+	private String getServer(String mail) {
+		String result = null;
+		int start = mail.indexOf("@")+ 1;
+		int end = mail.lastIndexOf(".");
+		result = mail.substring(start, end);
+		return result;
 	}
 	
 	

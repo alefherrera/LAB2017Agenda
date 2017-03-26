@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-03-25T21:18:40 -->
+<!-- 2017-03-26T12:38:43 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="284e0c88-a4b2-4ff8-98a2-d67b80bcffaf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
@@ -18,7 +18,8 @@
 		<fieldDescription><![CDATA[servidorMail]]></fieldDescription>
 	</field>
 	<sortField name="ServidorMail"/>
-	<group name="GroupLocalidad">
+	<sortField name="nombre"/>
+	<group name="GroupServer">
 		<groupExpression><![CDATA[$F{ServidorMail}]]></groupExpression>
 		<groupHeader>
 			<band height="40">
@@ -36,7 +37,7 @@
 				<textField>
 					<reportElement x="460" y="1" width="30" height="15" uuid="8dc841d8-1ab6-49a8-b314-0ae017a04092"/>
 					<textElement textAlignment="Right"/>
-					<textFieldExpression><![CDATA[$V{GroupLocalidad_COUNT}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{GroupServer_COUNT}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -134,14 +135,14 @@
 					<reportElement x="135" y="0" width="270" height="300" uuid="f2d7418f-9d3f-4e3c-8d2e-c38f48738929"/>
 					<chartTitle>
 						<font size="15" isBold="false"/>
-						<titleExpression><![CDATA["Grafico personas x localidad"]]></titleExpression>
+						<titleExpression><![CDATA["Grafico personas x servidor de mail"]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
 					<keyExpression><![CDATA[$F{ServidorMail}]]></keyExpression>
-					<valueExpression><![CDATA[$V{GroupLocalidad_COUNT}]]></valueExpression>
+					<valueExpression><![CDATA[$V{GroupServer_COUNT}]]></valueExpression>
 				</pieDataset>
 				<piePlot labelFormat="{0} {2}">
 					<plot/>
