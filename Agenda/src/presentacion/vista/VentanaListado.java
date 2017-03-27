@@ -37,6 +37,7 @@ public class VentanaListado {
 		panel.setBounds(0, 0, 434, 239);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
+		frame.setLocationRelativeTo(null);
 
 		JScrollPane spPersonas = new JScrollPane();
 		spPersonas.setBounds(12, 11, 414, 182);

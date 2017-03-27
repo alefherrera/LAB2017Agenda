@@ -32,6 +32,7 @@ public class Vista {
 		frame.setBounds(100, 100, 609, 430);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 594, 365);

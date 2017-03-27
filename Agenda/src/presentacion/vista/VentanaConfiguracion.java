@@ -49,6 +49,7 @@ public class VentanaConfiguracion extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		this.setLocationRelativeTo(null);
 
 
 		JPanel panel = new JPanel();
