@@ -2,6 +2,7 @@ package presentacion.vista;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -145,6 +146,7 @@ public class VentanaPersona extends JFrame
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(432, 107, 164, 22);
+		dateChooser.setDate(new Date());
 		JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
 		editor.setEditable(false);
 		panel.add(dateChooser);
