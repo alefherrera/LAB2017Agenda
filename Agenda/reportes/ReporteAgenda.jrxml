@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-03-06T22:23:14 -->
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-03-26T20:39:19 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="284e0c88-a4b2-4ff8-98a2-d67b80bcffaf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<parameter name="Fecha" class="java.lang.String"/>
-	<queryString language="SQL">
-		<![CDATA[]]>
-	</queryString>
 	<field name="telefono" class="java.lang.String">
 		<fieldDescription><![CDATA[telefono]]></fieldDescription>
 	</field>
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[nombre]]></fieldDescription>
 	</field>
+	<field name="mail" class="java.lang.String">
+		<fieldDescription><![CDATA[email]]></fieldDescription>
+	</field>
+	<field name="ServidorMail" class="java.lang.String">
+		<fieldDescription><![CDATA[servidorMail]]></fieldDescription>
+	</field>
+	<sortField name="ServidorMail"/>
+	<sortField name="nombre"/>
+	<group name="GroupServer">
+		<groupExpression><![CDATA[$F{ServidorMail}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" positionType="Float" x="0" y="10" width="506" height="24" forecolor="#000000" uuid="58dcc1c6-1d3b-42b1-ab28-0ec976da8319"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ServidorMail}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="430" y="0" width="300" height="15" uuid="8dc841d8-1ab6-49a8-b314-0ae017a04092"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total " + $F{ServidorMail} + ": " + $V{GroupServer_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -65,7 +96,14 @@
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
-					<text><![CDATA[Teléfono]]></text>
+					<text><![CDATA[Telefono]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="430" y="0" width="100" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Mail]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -80,17 +118,21 @@
 				<reportElement x="285" y="1" width="215" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="430" y="1" width="140" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+				<textFieldExpression><![CDATA[$F{mail}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="7" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="33" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<textField>
 				<reportElement x="355" y="0" width="100" height="30" uuid="5ce007da-8e81-48b7-91fd-8e603c20d7ef"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pagina " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="455" y="0" width="100" height="30" uuid="52b869cb-a151-48f6-ad3c-3147a8d111e8"/>
@@ -99,4 +141,27 @@
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="307" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="135" y="0" width="270" height="300" uuid="f2d7418f-9d3f-4e3c-8d2e-c38f48738929"/>
+					<chartTitle>
+						<font size="15" isBold="false"/>
+						<titleExpression><![CDATA["Grafico personas x servidor de mail"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{ServidorMail}]]></keyExpression>
+					<valueExpression><![CDATA[$V{GroupServer_COUNT}]]></valueExpression>
+				</pieDataset>
+				<piePlot labelFormat="{0} {2}">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
 </jasperReport>
