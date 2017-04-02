@@ -29,8 +29,8 @@ public class ReporteAgenda {
 		
 		try {
 			this.reporte = (JasperReport) JRLoader
-					//.loadObjectFromFile("ReporteAgenda.jasper");
-					.loadObjectFromFile("reportes" + File.separatorChar + "ReporteAgenda.jasper");
+					.loadObjectFromFile("ReporteAgenda.jasper");
+					//.loadObjectFromFile("reportes" + File.separatorChar + "ReporteAgenda.jasper");
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap,
 					new JRBeanCollectionDataSource(personas));
 		} catch (JRException ex) {
