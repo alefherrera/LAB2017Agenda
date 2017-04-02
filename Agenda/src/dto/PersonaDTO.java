@@ -147,7 +147,8 @@ public class PersonaDTO
 	}
 	
 	public String getServidorMail() {
-		return getServer(this.email);
+		// agrego el toLowerCase para evitar agrupamientos raros en el reporte
+		return getServer(this.email.toLowerCase());
 		// return "gmail";
 	}
 	
