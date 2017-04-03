@@ -2,6 +2,7 @@ package persistencia.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import util.ConfigService;
 import util.Configuration;
@@ -12,46 +13,53 @@ public class Conexion {
 	private Connection conexion;
 
 	private Conexion() {
+		conexion = openConnection();
+	}
+
+	public static Connection openConnection() {
+		return openConnection(null);
+	}
+
+	private static Connection openConnection(Configuration configParam) {
 		try {
-			Configuration config = ConfigService.GetConfiguration();
-			String user = null, pass = null, ip = null, port = null;
+			Configuration config = configParam == null ? ConfigService.GetConfiguration() : configParam;
+			String user = null, pass = null, ip = null, port = null, db = null;
 			if (config != null) {
 				user = config.getUser();
 				pass = config.getPass();
 				ip = config.getIp();
 				port = config.getPort();
+				db = config.getDatabase();
 			}
-			
+
 			Class.forName(driver).newInstance();
-			conexion = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/agenda", ip, port), user, pass);
+			Connection result = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/%s", ip, port, db), user,
+					pass);
 			System.out.println("Conexion exitosa");
+			return result;
 		} catch (Exception e) {
 			System.out.println("Conexion fallida");
+			return null;
 		}
 	}
 
-	public static boolean connectionTest(Configuration config)
-	{
-		Connection conex = null;
-		try {
-			String user = null, pass = null, ip = null, port = null;
-			if (config != null) {
-				user = config.getUser();
-				pass = config.getPass();
-				ip = config.getIp();
-				port = config.getPort();
+	public static boolean connectionTest(Configuration config) {
+		Connection conn = openConnection(config);
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				System.out.println("Error cerrando la conexion de prueba.");
 			}
-			
-			Class.forName(driver).newInstance();
-			conex = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/agenda", ip, port), user, pass);
+			conn = null;
 			return true;
-		} catch (Exception e) {
+		} else {
 			return false;
-		} finally {
-			if (conex != null) {
-				conex = null;
-			}
 		}
+	}
+
+	public static void refreshConnection(){
+		instancia = new Conexion();
 	}
 	
 	public static Conexion getConexion() {

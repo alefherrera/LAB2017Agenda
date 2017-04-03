@@ -23,6 +23,7 @@ public class VentanaConfiguracion extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	private JButton buttonTest;
+	private JTextField txtDatabase;
 
 //	/**
 //	 * Launch the application.
@@ -44,7 +45,7 @@ public class VentanaConfiguracion extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setTitle("Configuracion");
-		setBounds(100, 100, 323, 374);
+		setBounds(100, 100, 320, 443);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -53,17 +54,17 @@ public class VentanaConfiguracion extends JDialog {
 
 
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 13, 279, 126);
+		panel.setBounds(12, 13, 279, 159);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
 		txtIp = new JTextField();
-		txtIp.setBounds(80, 52, 116, 22);
+		txtIp.setBounds(137, 52, 116, 22);
 		panel.add(txtIp);
 		txtIp.setColumns(10);
 		{
 			txtPort = new JTextField();
-			txtPort.setBounds(80, 87, 116, 22);
+			txtPort.setBounds(137, 87, 116, 22);
 			panel.add(txtPort);
 			txtPort.setColumns(10);
 		}
@@ -80,20 +81,29 @@ public class VentanaConfiguracion extends JDialog {
 		lblDireccionMysql.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDireccionMysql.setBounds(12, 13, 255, 26);
 		panel.add(lblDireccionMysql);
+		
+		JLabel lblBaseDeDatos = new JLabel("Base de Datos");
+		lblBaseDeDatos.setBounds(12, 121, 116, 16);
+		panel.add(lblBaseDeDatos);
+		
+		txtDatabase = new JTextField();
+		txtDatabase.setColumns(10);
+		txtDatabase.setBounds(137, 118, 116, 22);
+		panel.add(txtDatabase);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBounds(12, 152, 279, 126);
+		panel_1.setBounds(12, 179, 279, 126);
 		contentPanel.add(panel_1);
 
 		txtUser = new JTextField();
 		txtUser.setColumns(10);
-		txtUser.setBounds(80, 52, 116, 22);
+		txtUser.setBounds(137, 52, 116, 22);
 		panel_1.add(txtUser);
 
 		txtPass = new JTextField();
 		txtPass.setColumns(10);
-		txtPass.setBounds(80, 87, 116, 22);
+		txtPass.setBounds(137, 87, 116, 22);
 		panel_1.add(txtPass);
 
 		JLabel lblUser = new JLabel("User");
@@ -160,5 +170,9 @@ public class VentanaConfiguracion extends JDialog {
 
 	public JTextField getTxtPass() {
 		return txtPass;
+	}
+	
+	public JTextField getTxtDatabase() {
+		return txtDatabase;
 	}
 }

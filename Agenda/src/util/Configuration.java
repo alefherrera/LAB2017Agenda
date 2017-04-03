@@ -5,6 +5,7 @@ public class Configuration {
 	private String port;
 	private String user;
 	private String pass;
+	private String database;
 	
 	
 	public String getIp() {
@@ -30,5 +31,11 @@ public class Configuration {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public String getDatabase() {
+		return database;
+	}
+	public void setDatabase(String database) {
+		this.database = database;
 	}
 }

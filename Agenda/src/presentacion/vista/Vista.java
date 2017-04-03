@@ -20,6 +20,7 @@ public class Vista {
 	private JButton btnEditar;
 	private JButton btnLocalidades;
 	private JButton btnTiposContacto;
+	private JButton btnConfigurar;
 
 	public Vista() {
 		super();
@@ -76,6 +77,10 @@ public class Vista {
 		btnTiposContacto = new JButton("Tipos contacto");
 		btnTiposContacto.setBounds(453, 313, 127, 39);
 		panel.add(btnTiposContacto);
+
+		btnConfigurar = new JButton("Configurar");
+		btnConfigurar.setBounds(10, 312, 127, 39);
+		panel.add(btnConfigurar);
 	}
 
 	public void show() {
@@ -120,5 +125,9 @@ public class Vista {
 
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
+	}
+
+	public JButton getbtnConfiguracion() {
+		return btnConfigurar;
 	}
 }

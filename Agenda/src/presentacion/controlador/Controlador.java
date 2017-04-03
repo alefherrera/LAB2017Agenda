@@ -27,18 +27,18 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnReporte().addActionListener(this);
 		this.vista.getBtnLocalidades().addActionListener(this);
 		this.vista.getBtnTiposContacto().addActionListener(this);
+		this.vista.getbtnConfiguracion().addActionListener(this);
 		this.agenda = agenda;
 		this.personas_en_tabla = null;
 	}
 
 	public void inicializar() {
-		
+
 		if (DatabaseUtil.testConnection(ConfigService.GetConfiguration())) {
 			this.llenarTabla();
-		}else
-		{
+		} else {
 			VentanaConfiguracion configWindow = new VentanaConfiguracion();
-			ControladorConfiguracion configController = new ControladorConfiguracion(configWindow, this);
+			ControladorConfiguracion configController = new ControladorConfiguracion(configWindow, this, true);
 		}
 	}
 
@@ -49,19 +49,14 @@ public class Controlador implements ActionListener {
 
 		this.personas_en_tabla = agenda.obtenerPersonas();
 		for (PersonaDTO personaDTO : personas_en_tabla) {
-			Object[] fila = { 
-					personaDTO.getNombre(), 
-					personaDTO.getTelefono(),
-					personaDTO.getTipoContacto().getDescripcion(),
-					personaDTO.getLocalidad().getDescripcion()
-			};
+			Object[] fila = { personaDTO.getNombre(), personaDTO.getTelefono(),
+					personaDTO.getTipoContacto().getDescripcion(), personaDTO.getLocalidad().getDescripcion() };
 			this.vista.getModelPersonas().addRow(fila);
 		}
 		this.vista.show();
 	}
-	
-	public void finishApplication()
-	{
+
+	public void finishApplication() {
 		this.vista.close();
 		System.exit(0);
 	}
@@ -85,16 +80,21 @@ public class Controlador implements ActionListener {
 			VentanaPersona ventanaPer = new VentanaPersona();
 			ControladorPersona ctrlPersona = new ControladorPersona(ventanaPer, agenda, selectedPerson, this);
 		} else if (e.getSource() == this.vista.getBtnReporte()) {
-			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonasPorOrden(AtributoPersona.LOCALIDAD), agenda.reporte_PersonasXLocalidad());
+			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonasPorOrden(AtributoPersona.LOCALIDAD),
+					agenda.reporte_PersonasXLocalidad());
 			reporte.mostrar();
 		} else if (e.getSource() == this.vista.getBtnLocalidades()) {
 			VentanaListado ventanaListado = new VentanaListado();
 			new ControladorListadoLocalidad(ventanaListado, agenda);
-			
+
 		} else if (e.getSource() == this.vista.getBtnTiposContacto()) {
 			VentanaListado ventanaListado = new VentanaListado();
 			new ControladorListadoTipoContacto(ventanaListado, agenda);
-			
+
+		} else if (e.getSource() == this.vista.getbtnConfiguracion()) {
+			VentanaConfiguracion ventanaConfiguracion = new VentanaConfiguracion();
+			new ControladorConfiguracion(ventanaConfiguracion, this, false);
+
 		}
 	}
 
