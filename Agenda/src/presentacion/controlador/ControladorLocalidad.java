@@ -41,7 +41,8 @@ public class ControladorLocalidad implements ActionListener {
 				currentLocalidad.setDescripcion(vista.getTxtNombre().getText());
 				agenda.actualizarLocalidad(currentLocalidad);
 			}
-
+			vista.setVisible(false);
+			vista.dispose();
 			controladorListado.llenarTabla();
 
 		}

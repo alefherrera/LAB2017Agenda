@@ -42,6 +42,8 @@ public class ControladorTipoContacto implements ActionListener {
 				agenda.actualizarTipoContacto(currentTipoContacto);
 			}
 			
+			vista.setVisible(false);
+			vista.dispose();
 			controladorListado.llenarTabla();
 		}
 	}
